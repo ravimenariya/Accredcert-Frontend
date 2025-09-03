@@ -25,7 +25,7 @@ export default defineConfig({
   },
   root: path.resolve(import.meta.dirname, "client"),
   build: {
-    outDir: path.resolve(import.meta.dirname, "dist/public"),
+    outDir: path.resolve(import.meta.dirname, "dist"),
     emptyOutDir: true,
   },
   server: {
@@ -34,7 +34,7 @@ export default defineConfig({
       deny: ["**/.*"],
     },
     allowedHosts: [
-      "0407820e-cf19-4a95-a327-040d6775841d-00-1mkinjkui9cq4.riker.replit.dev",
+      "*",
     ],
   },
 });
