@@ -1,0 +1,14 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "client/index.html",
+      "use": "@vercel/static"
+    },
+    {
+      "src": "client/package.json",
+      "use": "@vercel/node"
+    }
+  ],
+  "outputDirectory": "client/dist"
+}
