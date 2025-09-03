@@ -9,7 +9,6 @@ const Context = ({ children }) => {
     const [services, setServices] = useState([]);
     const [blogs, setBlogs] = useState([]);
     const [certificates, setCertificates] = useState([]);
-    // Fetch services
 
     const callservices = async () => {
         try {
