@@ -105,9 +105,9 @@ export default function Contact() {
                 <div>
                   <h3 className="font-semibold text-black mb-1">Our Location</h3>
                   <p className="text-gray-600">
-                    2105 Vista Oeste St NW,<br />
-                    Suite E - 1080<br />
-                    Albuquerque, NM 87120
+                    8206 Louisiana Blvd NE<br />
+                    Ste B #10376<br />
+                    Albuquerque, NM 87113
                   </p>
                 </div>
               </div>
@@ -118,7 +118,7 @@ export default function Contact() {
                 </div>
                 <div>
                   <h3 className="font-semibold text-black mb-1">Phone</h3>
-                  <p className="text-gray-600">+1 (646) 974-6735</p>
+                  <p className="text-gray-600">+1 5053086452</p>
                 </div>
               </div>
 
