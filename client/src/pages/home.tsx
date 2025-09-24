@@ -1,6 +1,7 @@
 import { Link } from "wouter";
 import { Button } from "@/components/ui/button";
 import { CheckCircle, Award, Users, Globe } from "lucide-react";
+import { url } from "inspector";
 
 export default function Home() {
   return (
@@ -9,13 +10,13 @@ export default function Home() {
       <section className="relative bg-gray-900 text-white">
         <div className="absolute inset-0 hero-overlay"></div>
         <div 
-          className="absolute inset-0 bg-cover bg-center"
-          style={{
-            backgroundImage: "url('https://images.unsplash.com/photo-1450101499163-c8848c66ca85?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1920&h=800')"
-          }}
+            className="absolute inset-0 bg-cover bg-center"
+            style={{
+            backgroundImage:'url("https://res.cloudinary.com/dvgofgw5j/image/upload/v1758716204/626e6679bf1114f85d4a3fca7fa1420c_wjafjj.jpg")'
+            }}
         />
-        
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 md:py-32">
+       
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 xlg:px-8 py-24 md:py-32">
           <div className="text-center">
             <h1 className="text-4xl md:text-6xl font-bold mb-6 leading-tight">
               Simplifying Global<br />
