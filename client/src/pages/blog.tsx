@@ -43,56 +43,49 @@ export default function Blog() {
                 ...blogs.filter((blog) => blog.status === "Published"),
                 ...blogs.filter((blog) => blog.status === "Coming Soon"),
               ].map((blog) => {
-                const keyId = blog._id ?? blog.id ?? blog.slug ?? Math.random();
                 return (
-                  <div key={keyId} className="service-card p-6">
-                    {/* optional blog image */}
-                    {blog.imageUrl ? (
-                      <img
-                        src={blog.imageUrl}
-                        alt={blog.title}
-                        className="w-full h-48 object-cover rounded-lg mb-4"
-                      />
-                    ) : (
-                      <div className="w-full h-48 bg-gray-100 rounded-lg mb-4 flex items-center justify-center text-gray-400">
-                        No Image
-                      </div>
-                    )}
-
-                    <div className="flex items-center justify-between mb-4">
-                      <Badge className="bg-black text-white text-sm font-semibold px-3 py-1 rounded">
-                        {blog.category}
-                      </Badge>
-                      {blog.status === "Coming Soon" && (
-                        <Badge className="bg-yellow-500 text-white text-sm font-semibold px-3 py-1 rounded">
-                          Coming Soon
+                  <Card
+                    key={blog._id}
+                    className="bg-white rounded-xl shadow-lg border border-gray-100 hover:shadow-xl transition-all duration-300 hover:scale-[1.02]"
+                  >
+                    <CardContent className="p-6">
+                      <div className="flex items-center justify-between mb-4">
+                        <Badge className="bg-black text-white text-sm font-semibold px-3 py-1 rounded">
+                          {blog.category}
                         </Badge>
-                      )}
-                    </div>
-
-                    <h3 className="text-xl font-semibold text-black mb-2">{blog.title}</h3>
-
-                    <p className="text-gray-600 mb-4">{blog.description ?? blog.excerpt}</p>
-
-                    <div className="flex items-center justify-between text-gray-500 text-sm mb-4">
-                      <div className="flex items-center">
-                        <Calendar className="mr-1 w-4 h-4" />
-                        {new Date(blog.createdAt).toLocaleDateString('en-US', {
-                          month: 'short',
-                          day: 'numeric',
-                          year: 'numeric'
-                        })}
+                        {blog.status === "Coming Soon" && (
+                          <Badge className="bg-yellow-500 text-white text-sm font-semibold px-3 py-1 rounded">
+                            Coming Soon
+                          </Badge>
+                        )}
                       </div>
-                      <div className="flex items-center">
-                        <User className="mr-1 w-4 h-4" />
-                        {blog.author ?? blog.authorName ?? 'Admin'}
+                      <h3 className="text-xl font-semibold text-black mb-2">
+                        {blog.title}
+                      </h3>
+                      <p className="text-gray-600 mb-4">
+                        {blog.description}
+                      </p>
+                      <div className="flex items-center justify-between text-gray-500 text-sm mb-4">
+                        <div className="flex items-center">
+                          <Calendar className="mr-1 w-4 h-4" />
+                          {new Date(blog.createdAt).toLocaleDateString('en-US', { 
+                            month: 'short', 
+                            day: 'numeric', 
+                            year: 'numeric' 
+                          })}
+                        </div>
+                        <div className="flex items-center">
+                          <User className="mr-1 w-4 h-4" />
+                          {blog.author}
+                        </div>
                       </div>
-                    </div>
-
-                    <Link href={`/blog/${blog._id ?? blog.slug ?? ''}`}>
-                      <Button className="professional-button w-full">Read Article</Button>
-                    </Link>
-                  </div>
+                      <Link href={`/blog/${blog._id}`}>
+                        <Button className="professional-button w-full">
+                          Read Article
+                        </Button>
+                      </Link>
+                    </CardContent>
+                  </Card>
                 );
               })}
             </div>
