@@ -2,12 +2,15 @@ import { useContext, useState } from "react";
 import { Button } from "@/components/ui/button";
 import ServiceCard from "@/components/ui/service-card";
 import { AppContext } from "@/Context";
-import { useNavigate } from 'react-router-dom';
+import { Link } from "wouter";
 
 export default function Services()  {
   const [selectedCountry, setSelectedCountry] = useState("USA");
-  const { services } = useContext(AppContext);
-  const navigate = useNavigate();
+  const context = useContext(AppContext);
+  if (!context) {
+    throw new Error("Services must be used within AppContext.Provider");
+  }
+  const { services } = context;
 
   const countries = [
     { code: "USA", name: "United States" },
@@ -62,9 +65,11 @@ export default function Services()  {
           <p className="text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
             Our experts can provide tailored compliance strategies for your specific business needs and regulatory requirements.
           </p>
-          <Button onClick={() => navigate('/contact')} size="lg" className="professional-button">
-            Contact Our Experts
-          </Button>
+          <Link href="/contact">
+            <Button size="lg" className="professional-button">
+              Contact Our Experts
+            </Button>
+          </Link>
         </div>
       </div>
     </div>

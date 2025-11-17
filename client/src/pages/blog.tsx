@@ -2,6 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import { Link } from "wouter";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Calendar, User, ArrowRight } from "lucide-react";
 import type { BlogPost } from "@shared/schema";
@@ -9,7 +10,13 @@ import { useContext } from "react";
 import { AppContext } from "@/Context";
 
 export default function Blog() {
-  const { blogs } = useContext(AppContext);
+  const context = useContext(AppContext);
+  
+  if (!context) {
+    throw new Error("Blog must be used within AppContext.Provider");
+  }
+  
+  const { blogs } = context;
 
   return (
     <div className="min-h-screen py-20 bg-gray-50">
@@ -39,36 +46,44 @@ export default function Blog() {
                 return (
                   <Card
                     key={blog._id}
-                    className="bg-white border border-gray-200 hover:shadow-lg transition-shadow duration-300"
+                    className="bg-white rounded-xl shadow-lg border border-gray-100 hover:shadow-xl transition-all duration-300 hover:scale-[1.02]"
                   >
                     <CardContent className="p-6">
                       <div className="flex items-center justify-between mb-4">
-                        <Badge className="bg-blue-600 text-white text-sm font-semibold px-3 py-1 rounded-full">
+                        <Badge className="bg-black text-white text-sm font-semibold px-3 py-1 rounded">
                           {blog.category}
                         </Badge>
-                        <Link
-                          href={`/blog/${blog._id}`}
-                          className="text-blue-600 hover:underline flex items-center"
-                        >
-                          Read more <ArrowRight className="ml-1" />
-                        </Link>
+                        {blog.status === "Coming Soon" && (
+                          <Badge className="bg-yellow-500 text-white text-sm font-semibold px-3 py-1 rounded">
+                            Coming Soon
+                          </Badge>
+                        )}
                       </div>
-                      <h2 className="text-2xl font-bold text-black mb-2">
+                      <h3 className="text-xl font-semibold text-black mb-2">
                         {blog.title}
-                      </h2>
-                      <p className="text-gray-600 mb-4">{blog.description}</p>
-                      <div className="flex  justify-between text-gray-500 text-sm">
+                      </h3>
+                      <p className="text-gray-600 mb-4">
+                        {blog.description}
+                      </p>
+                      <div className="flex items-center justify-between text-gray-500 text-sm mb-4">
                         <div className="flex items-center">
-                          <Calendar className="mr-1" />
-                          {new Date(blog.createdAt).toLocaleDateString()}
+                          <Calendar className="mr-1 w-4 h-4" />
+                          {new Date(blog.createdAt).toLocaleDateString('en-US', { 
+                            month: 'short', 
+                            day: 'numeric', 
+                            year: 'numeric' 
+                          })}
                         </div>
                         <div className="flex items-center">
-                          <User className="ml-4 mr-1" />
-                          {blog.author}{" "}
+                          <User className="mr-1 w-4 h-4" />
+                          {blog.author}
                         </div>
-
-                        {blog.status}
                       </div>
+                      <Link href={`/blog/${blog._id}`}>
+                        <Button className="professional-button w-full">
+                          Read Article
+                        </Button>
+                      </Link>
                     </CardContent>
                   </Card>
                 );

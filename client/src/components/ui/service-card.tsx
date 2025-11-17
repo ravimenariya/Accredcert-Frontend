@@ -1,13 +1,12 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import type { Service } from "@shared/schema";
-import { useNavigate } from 'react-router-dom';
+import { Link } from "wouter";
 interface ServiceCardProps {
   service: Service;
 }
 
 export default function ServiceCard({ service }: ServiceCardProps) {
-  const navigate=useNavigate()
   return (
     <Card className="service-card">
       {service.imageUrl && (
@@ -24,13 +23,12 @@ export default function ServiceCard({ service }: ServiceCardProps) {
           <span className="text-sm font-medium text-gray-500 bg-gray-100 px-2 py-1 rounded">
             {service.country}
           </span>
-         
-         <Button
-  onClick={() => navigate('/service',{state:service._id})}
-  className="professional-button"
->
-  Learn More
-</Button>
+
+          <Link href={`/service/${service._id}`}>
+            <Button className="professional-button">
+              Learn More
+            </Button>
+          </Link>
 
         </div>
       </CardContent>

@@ -1,14 +1,27 @@
 // src/pages/service.tsx
 import { useEffect, useState } from "react";
-import { useParams, useNavigate,useLocation } from "react-router-dom";
 import axios from "axios";
+import { useRoute, Link } from "wouter";
+
+type ServiceType = {
+  _id: string;
+  title: string;
+  category: string;
+  country: string;
+  description: string;
+  isActive: boolean;
+  createdAt: string;
+  updatedAt: string;
+  imageUrl?: string;
+};
+
 export default function Service() {  // ✅ default export
-   const location = useLocation();
-  const id = location.state;
-  const navigate = useNavigate();
-  const [service, setService] = useState(null);
+  const [match, params] = useRoute("/service/:id");
+  const id = params?.id;
+  const [service, setService] = useState<ServiceType | null>(null);
 
   useEffect(() => {
+    if (!id) return;
     const fetchService = async () => {
       try {
         const res = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/user/getservice/${id}`);
@@ -24,7 +37,9 @@ export default function Service() {  // ✅ default export
 
   return (
     <div className="max-w-md mx-auto bg-white shadow-lg rounded-xl overflow-hidden my-4">
-      <img src={service.imageUrl} alt={service.title} className="w-full h-48 object-cover" />
+      {service.imageUrl && (
+        <img src={service.imageUrl} alt={service.title} className="w-full h-48 object-cover" />
+      )}
       <div className="p-6">
         <h2 className="text-2xl font-bold text-gray-900 mb-2">{service.title}</h2>
         <div className="flex items-center gap-4 text-sm text-gray-500 mb-3">
@@ -40,12 +55,9 @@ export default function Service() {  // ✅ default export
           <p>Updated: {new Date(service.updatedAt).toLocaleDateString()}</p>
         </div>
         <div className="p-4">
-          <button
-            onClick={() => navigate("/services")}
-            className="bg-gray-200 hover:bg-gray-300 text-gray-700 font-semibold px-4 py-2 rounded-md"
-          >
+          <Link href="/services" className="bg-gray-200 hover:bg-gray-300 text-gray-700 font-semibold px-4 py-2 rounded-md inline-block">
             ← Back to Services
-          </button>
+          </Link>
         </div>
       </div>
     </div>

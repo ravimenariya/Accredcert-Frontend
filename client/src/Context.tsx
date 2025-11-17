@@ -1,14 +1,38 @@
-import { createContext, useEffect, useState } from "react";
+import { createContext, useEffect, useState, ReactNode } from "react";
 import axios from "axios";
+import type { BlogPost } from "@shared/schema";
 
-export const AppContext = createContext();
+interface Service {
+    _id: string;
+    [key: string]: any;
+}
 
-const Backend_url = import.meta.env.VITE_BACKEND_URL ;
+interface Certificate {
+    _id: string;
+    [key: string]: any;
+}
 
-const Context = ({ children }) => {
-    const [services, setServices] = useState([]);
-    const [blogs, setBlogs] = useState([]);
-    const [certificates, setCertificates] = useState([]);
+interface AppContextType {
+    services: Service[];
+    callservices: () => Promise<void>;
+    blogs: BlogPost[];
+    callblogs: () => Promise<void>;
+    certificates: Certificate[];
+    callcertificates: () => Promise<void>;
+}
+
+export const AppContext = createContext<AppContextType | undefined>(undefined);
+
+const Backend_url = import.meta.env.VITE_BACKEND_URL;
+
+interface ContextProps {
+    children: ReactNode;
+}
+
+const Context = ({ children }: ContextProps) => {
+    const [services, setServices] = useState<Service[]>([]);
+    const [blogs, setBlogs] = useState<BlogPost[]>([]);
+    const [certificates, setCertificates] = useState<Certificate[]>([]);
 
     const callservices = async () => {
         try {

@@ -35,7 +35,7 @@ function Router() {
           <Route path="/contact" component={Contact} />
           <Route path="/blog/:id" component={SingleBlog} />
           <Route path="/blogs" component={Blogs} />
-          <Route path="/service" component={Service} />
+          <Route path="/service/:id" component={Service} />
           <Route component={NotFound} />
         </Switch>
       </main>
