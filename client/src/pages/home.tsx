@@ -8,21 +8,23 @@ export default function Home() {
     <div className="min-h-screen">
       {/* Hero Section */}
       <section className="relative bg-gray-900 text-white">
-        <div className="absolute inset-0 hero-overlay"></div>
+        {/* background image behind everything */}
         <div 
-            className="absolute inset-0 bg-cover bg-center"
+            className="absolute inset-0 bg-cover bg-center -z-10"
             style={{
             backgroundImage:'url("https://res.cloudinary.com/dvgofgw5j/image/upload/v1758716204/626e6679bf1114f85d4a3fca7fa1420c_wjafjj.jpg")'
             }}
         />
-       
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 xlg:px-8 py-24 md:py-32">
+        {/* subtle dark overlay to fade the image */}
+        <div className="absolute inset-0 hero-overlay z-10" />
+
+        <div className="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 xlg:px-8 py-24 md:py-32">
           <div className="text-center">
             <h1 className="text-4xl md:text-6xl font-bold mb-6 leading-tight">
               Simplifying Global<br />
               <span className="brand-blue">Compliance</span>
             </h1>
-            <p className="text-2xl md:text-3xl mb-8 max-w-3xl mx-auto text-black font-bold">
+            <p className="text-2xl md:text-3xl mb-8 max-w-3xl mx-auto text-white font-bold">
   AccredCert is a trusted &amp; US Govt. certified FDA agent specializing in global compliance solutions for manufacturers, distributors, and exporters.
 </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
