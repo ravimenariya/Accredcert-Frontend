@@ -27,7 +27,7 @@ export default function Home() {
               <span className="brand-blue">Compliance</span>
             </h1>
             <p className="text-2xl md:text-3xl mb-8 max-w-3xl mx-auto text-black font-bold 
-             bg-white/30 p-4 rounded-xl">
+             bg-white/40 p-4 rounded-xl">
               AccredCert is a trusted &amp; US Govt. certified FDA agent specializing in global compliance solutions for manufacturers, distributors, and exporters.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
