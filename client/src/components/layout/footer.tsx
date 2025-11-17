@@ -59,8 +59,9 @@ export default function Footer() {
               <div className="flex items-start">
                 <MapPin className="mt-1 mr-3 flex-shrink-0" size={16} />
                 <span className="text-sm">
-                  2105 Vista Oeste St NW, Suite E - 1080<br />
-                  Albuquerque, NM 87120
+                  8206 Louisiana Blvd NE <br />
+                  Ste B #10376 <br />
+                  Albuquerque, NM 87113
                 </span>
               </div>
               <div className="flex items-center">
