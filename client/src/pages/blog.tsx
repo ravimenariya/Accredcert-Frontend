@@ -79,11 +79,11 @@ export default function Blog() {
                           {blog.author}
                         </div>
                       </div>
-                      <Link href={`/blog/${blog._id}`}>
+                      { blog.status != "Coming Soon" && ( <Link href={`/blog/${blog._id}`}>
                         <Button className="professional-button w-full">
                           Read Article
                         </Button>
-                      </Link>
+                      </Link> )}
                     </CardContent>
                   </Card>
                 );
