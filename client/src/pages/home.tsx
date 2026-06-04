@@ -1,10 +1,27 @@
+import { useState, useEffect } from "react";
 import { Link } from "wouter";
 import { Button } from "@/components/ui/button";
 import { CheckCircle, Award, Users, Globe } from "lucide-react";
-import Windmill from "@/components/ui/windmill";
 import SEO from "@/components/seo";
+import ParticlesEffect from "@/components/ui/particles-effect";
 
 export default function Home() {
+  const [isHovered, setIsHovered] = useState(false);
+  const [typedTitle, setTypedTitle] = useState("");
+  const fullTitle = "Simplifying Global Compliance";
+
+  useEffect(() => {
+    let index = 0;
+    const intervalId = setInterval(() => {
+      setTypedTitle(fullTitle.slice(0, index + 1));
+      index++;
+      if (index >= fullTitle.length) {
+        clearInterval(intervalId);
+      }
+    }, 45); // 45ms per character for standard professional typewriter speed
+    return () => clearInterval(intervalId);
+  }, []);
+
   return (
     <div className="min-h-screen relative overflow-hidden">
       <SEO 
@@ -17,10 +34,11 @@ export default function Home() {
       <div className="absolute top-20 left-10 w-72 h-72 bg-blue-500/10 rounded-full blur-3xl animate-float-y pointer-events-none z-0" />
       <div className="absolute top-1/3 right-10 w-96 h-96 bg-green-500/10 rounded-full blur-3xl animate-float-x pointer-events-none z-0" />
       
-      <Windmill degrees={900} size={160} corner="top-right" />
-      
       {/* Hero Section */}
       <section className="relative overflow-hidden bg-[#0f2438] text-white">
+        {/* Background dynamic particle network - permanently active */}
+        <ParticlesEffect isActive={true} />
+
         {/* background image */}
         <div
           data-animate="parallax"
@@ -36,11 +54,34 @@ export default function Home() {
 
         <div className="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 xlg:px-8 py-24 md:py-32">
           <div className="text-center" data-animate="reveal">
-            <h1 className="text-4xl md:text-6xl font-bold mb-6 leading-tight">
-              Simplifying Global<br />
-              <span className="text-[#f2c357]">Compliance</span>
-            </h1>
-            <p className="text-xl md:text-2xl mb-8 max-w-3xl mx-auto text-white font-semibold bg-white/15 backdrop-blur-md p-4 rounded-xl border border-white/30">
+            <div 
+              className="inline-block cursor-pointer transition-all duration-300 transform hover:scale-[1.02] mb-6"
+              onMouseEnter={() => setIsHovered(true)}
+              onMouseLeave={() => setIsHovered(false)}
+            >
+              <h1 className="text-4xl md:text-6xl font-bold leading-tight select-none min-h-[96px] md:min-h-[144px]">
+                {typedTitle.length <= 18 ? (
+                  <>
+                    {typedTitle}
+                    {typedTitle.length < 18 && (
+                      <span className="animate-pulse inline-block w-1.5 h-8 md:h-12 bg-white ml-1 align-middle" />
+                    )}
+                  </>
+                ) : (
+                  <>
+                    Simplifying Global
+                    <br />
+                    <span className="text-[#f2c357] transition-colors duration-300 hover:text-white">
+                      {typedTitle.slice(18)}
+                      {typedTitle.length < fullTitle.length && (
+                        <span className="animate-pulse inline-block w-1.5 h-8 md:h-12 bg-[#f2c357] ml-1 align-middle" />
+                      )}
+                    </span>
+                  </>
+                )}
+              </h1>
+            </div>
+            <p className="text-lg md:text-xl mb-8 max-w-3xl mx-auto text-white font-medium bg-white/10 backdrop-blur-md p-4 rounded-xl border border-white/20 text-balance">
               AccredCert is a trusted &amp; US Govt. certified FDA agent specializing in global compliance solutions for manufacturers, distributors, and exporters.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
