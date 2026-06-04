@@ -8,6 +8,7 @@ import { Calendar, User, ArrowRight } from "lucide-react";
 import type { BlogPost } from "@shared/schema";
 import { useContext } from "react";
 import { AppContext } from "@/Context";
+import SEO from "@/components/seo";
 
 export default function Blog() {
   const context = useContext(AppContext);
@@ -19,9 +20,16 @@ export default function Blog() {
   const { blogs } = context;
 
   return (
-    <div className="min-h-screen py-20 bg-gray-50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
+    <div className="min-h-screen py-20 bg-gray-50 section-gradient relative overflow-hidden">
+      <SEO 
+        title="Knowledge Center | FDA Compliance & Regulations Blog"
+        description="Stay updated with the latest insights, guidelines, and articles on global compliance, food safety, cosmetics (MoCRA), and FDA updates."
+        keywords="FDA compliance blog, regulatory news, food safety updates, MoCRA blog, global compliance articles"
+      />
+      <div className="absolute top-10 left-10 w-72 h-72 bg-blue-500/5 rounded-full blur-3xl animate-float-y pointer-events-none" />
+      <div className="absolute bottom-10 right-10 w-80 h-80 bg-green-500/5 rounded-full blur-3xl animate-float-x pointer-events-none" />
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div className="text-center mb-16" data-animate="reveal">
           <h1 className="text-4xl font-bold text-black mb-4">
             Knowledge Center
           </h1>
@@ -31,14 +39,14 @@ export default function Blog() {
           </p>
         </div>
 
-        <div className="text-center py-12">
+        <div className="text-center py-12" data-animate="reveal">
           {blogs.length === 0 ? (
             <p className="text-gray-600 mb-8">
               We're working on creating valuable content for you. Check back
               soon for the latest insights on compliance and regulations.
             </p>
           ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" data-animate-group="stagger">
               {[
                 ...blogs.filter((blog) => blog.status === "Published"),
                 ...blogs.filter((blog) => blog.status === "Coming Soon"),
@@ -46,7 +54,8 @@ export default function Blog() {
                 return (
                   <Card
                     key={blog._id}
-                    className="bg-white rounded-xl shadow-lg border border-gray-100 hover:shadow-xl transition-all duration-300 hover:scale-[1.02]"
+                    data-animate-item="stagger"
+                    className="service-card"
                   >
                     <CardContent className="p-6">
                       <div className="flex items-center justify-between mb-4">
@@ -92,12 +101,12 @@ export default function Blog() {
           )}
         </div>
         {/* Featured Categories */}
-        <div className="mt-20">
+        <div className="mt-20" data-animate="reveal">
           <h2 className="text-3xl font-bold text-black text-center mb-12">
             Article Categories
           </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            <Card className="bg-white border border-gray-200 hover:shadow-lg transition-shadow duration-300">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6" data-animate-group="stagger">
+            <Card className="bg-white border border-gray-200 hover:shadow-lg transition-shadow duration-300" data-animate-item="stagger">
               <CardContent className="p-6 text-center">
                 <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
                   <Badge className="w-8 h-8 bg-blue-600" />
@@ -112,7 +121,7 @@ export default function Blog() {
               </CardContent>
             </Card>
 
-            <Card className="bg-white border border-gray-200 hover:shadow-lg transition-shadow duration-300">
+            <Card className="bg-white border border-gray-200 hover:shadow-lg transition-shadow duration-300" data-animate-item="stagger">
               <CardContent className="p-6 text-center">
                 <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
                   <Badge className="w-8 h-8 bg-green-600" />
@@ -127,7 +136,7 @@ export default function Blog() {
               </CardContent>
             </Card>
 
-            <Card className="bg-white border border-gray-200 hover:shadow-lg transition-shadow duration-300">
+            <Card className="bg-white border border-gray-200 hover:shadow-lg transition-shadow duration-300" data-animate-item="stagger">
               <CardContent className="p-6 text-center">
                 <div className="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
                   <Badge className="w-8 h-8 bg-purple-600" />
@@ -141,7 +150,7 @@ export default function Blog() {
               </CardContent>
             </Card>
 
-            <Card className="bg-white border border-gray-200 hover:shadow-lg transition-shadow duration-300">
+            <Card className="bg-white border border-gray-200 hover:shadow-lg transition-shadow duration-300" data-animate-item="stagger">
               <CardContent className="p-6 text-center">
                 <div className="w-16 h-16 bg-orange-100 rounded-full flex items-center justify-center mx-auto mb-4">
                   <Badge className="w-8 h-8 bg-orange-600" />
@@ -158,7 +167,7 @@ export default function Blog() {
         </div>
 
         {/* Newsletter Signup */}
-        <div className="mt-20 bg-black rounded-2xl p-12 text-center">
+        <div className="mt-20 bg-[linear-gradient(130deg,#0d1f31_0%,#0a4fa3_58%,#139f6a_100%)] rounded-2xl p-12 text-center" data-animate="reveal">
           <h2 className="text-3xl font-bold text-white mb-4">Stay Updated</h2>
           <p className="text-xl text-gray-300 mb-8 max-w-2xl mx-auto">
             Subscribe to our newsletter for the latest compliance insights and

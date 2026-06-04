@@ -10,6 +10,7 @@ import CertificateResult from "@/components/ui/certificate-result";
 import { Search } from "lucide-react";
 import { AppContext } from "@/Context";
 import { useToast } from "@/hooks/use-toast";
+import SEO from "@/components/seo";
 
 const verificationSchema = z.object({
   certificateNumber: z.string().min(1, "Certificate number is required"),
@@ -20,7 +21,11 @@ const verificationSchema = z.object({
 type VerificationFormData = z.infer<typeof verificationSchema>;
 
 export default function Verification() {
-  const { certificates } = useContext(AppContext);
+  const context = useContext(AppContext);
+  if (!context) {
+    throw new Error("Verification must be used within AppContext.Provider");
+  }
+  const { certificates } = context;
   const [verificationResult, setVerificationResult] = useState<any>(null);
   const { toast } = useToast();
 
@@ -62,16 +67,23 @@ export default function Verification() {
   };
 
   return (
-    <div className="min-h-screen py-20 bg-white">
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-12">
+    <div className="min-h-screen py-20 bg-white section-gradient relative overflow-hidden">
+      <SEO 
+        title="FDA Certificate Verification"
+        description="Verify the status, authenticity, and validity of your AccredCert FDA registration and compliance certificates instantly."
+        keywords="certificate verification, FDA certificate check, AccredCert verify, FDA registry lookup"
+      />
+      <div className="absolute top-10 right-10 w-72 h-72 bg-blue-500/5 rounded-full blur-3xl animate-float-y pointer-events-none" />
+      <div className="absolute bottom-10 left-10 w-72 h-72 bg-green-500/5 rounded-full blur-3xl animate-float-x pointer-events-none" />
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div className="text-center mb-12" data-animate="reveal">
           <h1 className="text-4xl font-bold text-black mb-4">Certificate Verification</h1>
           <p className="text-xl text-gray-600">
             Verify the authenticity of certificates issued by AccredCert
           </p>
         </div>
 
-        <Card className="bg-gray-50 border border-gray-100">
+        <Card className="bg-gray-50 border border-gray-100 surface-glass" data-animate="reveal">
           <CardContent className="p-8">
             <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
               <div>

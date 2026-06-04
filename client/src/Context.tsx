@@ -23,7 +23,8 @@ interface AppContextType {
 
 export const AppContext = createContext<AppContextType | undefined>(undefined);
 
-const Backend_url = import.meta.env.VITE_BACKEND_URL;
+const rawBackendUrl = import.meta.env.VITE_BACKEND_URL as string | undefined;
+const Backend_url = (rawBackendUrl && rawBackendUrl.trim() ? rawBackendUrl : "http://localhost:3000").replace(/\/$/, "");
 
 interface ContextProps {
     children: ReactNode;

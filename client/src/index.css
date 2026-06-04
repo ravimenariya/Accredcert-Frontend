@@ -3,29 +3,30 @@
 @tailwind utilities;
 
 :root {
-  --background: hsl(0, 0%, 100%);
-  --foreground: hsl(222, 14%, 13%);
+  --background: hsl(45, 29%, 97%);
+  --foreground: hsl(216, 43%, 15%);
   --muted: hsl(210, 40%, 96%);
   --muted-foreground: hsl(215, 16%, 47%);
   --popover: hsl(0, 0%, 100%);
   --popover-foreground: hsl(222, 14%, 13%);
   --card: hsl(0, 0%, 100%);
-  --card-foreground: hsl(222, 14%, 13%);
-  --border: hsl(214, 32%, 91%);
-  --input: hsl(214, 32%, 91%);
-  --primary: hsl(220, 13%, 9%);
+  --card-foreground: hsl(216, 43%, 15%);
+  --border: hsl(210, 26%, 87%);
+  --input: hsl(210, 26%, 87%);
+  --primary: hsl(216, 56%, 28%);
   --primary-foreground: hsl(210, 40%, 98%);
-  --secondary: hsl(210, 40%, 96%);
-  --secondary-foreground: hsl(222, 14%, 13%);
-  --accent: hsl(210, 40%, 96%);
-  --accent-foreground: hsl(222, 14%, 13%);
+  --secondary: hsl(46, 47%, 91%);
+  --secondary-foreground: hsl(216, 43%, 15%);
+  --accent: hsl(160, 28%, 91%);
+  --accent-foreground: hsl(216, 43%, 15%);
   --destructive: hsl(0, 84%, 60%);
   --destructive-foreground: hsl(210, 40%, 98%);
-  --ring: hsl(222, 14%, 13%);
+  --ring: hsl(216, 56%, 28%);
   --radius: 0.5rem;
-  --brand-blue: hsl(210, 100%, 54%);
-  --brand-green: hsl(142, 71%, 45%);
-  --brand-dark: hsl(220, 13%, 9%);
+  --brand-blue: hsl(212, 78%, 35%);
+  --brand-green: hsl(162, 72%, 36%);
+  --brand-gold: hsl(44, 76%, 56%);
+  --brand-dark: hsl(214, 51%, 13%);
   --brand-charcoal: hsl(0, 0%, 20%);
   --brand-gray: hsl(0, 0%, 40%);
 }
@@ -60,11 +61,17 @@
   }
 
   body {
-    @apply font-sans antialiased bg-background text-foreground;
+    @apply antialiased bg-background text-foreground;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    background-image:
+      radial-gradient(circle at 8% 14%, rgba(228, 180, 65, 0.24), transparent 34%),
+      radial-gradient(circle at 92% 6%, rgba(20, 83, 45, 0.18), transparent 32%),
+      linear-gradient(180deg, #fffaf0 0%, #f4f8fc 55%, #eef5f3 100%);
   }
 
   h1, h2, h3, h4, h5, h6 {
     @apply font-semibold text-foreground;
+    font-family: 'Outfit', sans-serif;
   }
 }
 
@@ -74,7 +81,9 @@
   }
 
   .service-card {
-    @apply bg-white rounded-xl shadow-lg border border-gray-100 hover:shadow-xl transition-all duration-300 hover:scale-[1.02];
+    @apply bg-white rounded-xl shadow-lg border border-gray-100 transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl hover:border-blue-400/30;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.95) 0%, rgba(250, 252, 255, 0.96) 100%);
+    backdrop-filter: blur(6px);
   }
 
   .admin-card {
@@ -98,11 +107,68 @@
   }
 
   .professional-button {
-    @apply bg-black text-white font-semibold py-3 px-6 rounded-lg hover:bg-gray-800 transition-all duration-300 flex items-center justify-center;
+    @apply text-white font-semibold py-3 px-6 rounded-lg transition-all duration-300 flex items-center justify-center hover:scale-[1.03] hover:shadow-[0_8px_24px_rgba(10,79,163,0.35)] active:scale-[0.98];
+    background: linear-gradient(120deg, #0a4fa3 0%, #136d8b 54%, #13a36b 100%);
   }
 
   .professional-button-outline {
-    @apply border-2 border-black text-black hover:bg-black hover:text-white font-semibold py-3 px-6 rounded-lg transition-all duration-300;
+    @apply border-2 font-semibold py-3 px-6 rounded-lg transition-all duration-300;
+    border-color: hsl(212, 78%, 35%);
+    color: hsl(212, 78%, 35%);
+    background: rgba(255, 255, 255, 0.6);
+  }
+
+  .professional-button-outline:hover {
+    color: white;
+    background: linear-gradient(120deg, #0a4fa3 0%, #136d8b 54%, #13a36b 100%);
+    box-shadow: 0 8px 24px rgba(10, 79, 163, 0.2);
+    transform: translateY(-1px);
+  }
+
+  .surface-glass {
+    background: rgba(255, 255, 255, 0.75);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.65);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.03);
+  }
+
+  .section-gradient {
+    background: linear-gradient(140deg, rgba(228, 180, 65, 0.11) 0%, rgba(10, 79, 163, 0.07) 48%, rgba(19, 163, 107, 0.1) 100%);
+  }
+
+  @keyframes float-y {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+  }
+
+  @keyframes float-x {
+    0%, 100% { transform: translateX(0); }
+    50% { transform: translateX(10px); }
+  }
+
+  .animate-float-y {
+    animation: float-y 6s ease-in-out infinite;
+  }
+
+  .animate-float-x {
+    animation: float-x 8s ease-in-out infinite;
+  }
+
+  .glow-pulse {
+    box-shadow: 0 0 0 0 rgba(19, 163, 107, 0.4);
+    animation: glow-pulse-keyframes 2s infinite;
+  }
+
+  @keyframes glow-pulse-keyframes {
+    0% {
+      box-shadow: 0 0 0 0 rgba(19, 163, 107, 0.4);
+    }
+    70% {
+      box-shadow: 0 0 0 10px rgba(19, 163, 107, 0);
+    }
+    100% {
+      box-shadow: 0 0 0 0 rgba(19, 163, 107, 0);
+    }
   }
 }
 

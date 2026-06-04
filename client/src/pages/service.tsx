@@ -33,12 +33,19 @@ export default function Service() {  // ✅ default export
     fetchService();
   }, [id]);
 
-  if (!service) return <p>Loading...</p>;
+  if (!service) {
+    return (
+      <div className="min-h-screen section-gradient flex items-center justify-center">
+        <p className="text-lg text-gray-700" data-animate="reveal">Loading...</p>
+      </div>
+    );
+  }
 
   return (
-    <div className="max-w-md mx-auto bg-white shadow-lg rounded-xl overflow-hidden my-4">
+    <div className="min-h-screen section-gradient py-16 px-4">
+      <div className="max-w-2xl mx-auto bg-white shadow-lg rounded-xl overflow-hidden my-4 surface-glass" data-animate="reveal">
       {service.imageUrl && (
-        <img src={service.imageUrl} alt={service.title} className="w-full h-48 object-cover" />
+        <img src={service.imageUrl} alt={service.title} className="w-full h-56 object-cover" />
       )}
       <div className="p-6">
         <h2 className="text-2xl font-bold text-gray-900 mb-2">{service.title}</h2>
@@ -59,6 +66,7 @@ export default function Service() {  // ✅ default export
             ← Back to Services
           </Link>
         </div>
+      </div>
       </div>
     </div>
   );

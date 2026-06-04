@@ -3,6 +3,7 @@ import { Link } from "wouter";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Award, Users, Globe, ChevronDown, ChevronUp } from "lucide-react";
+import SEO from "@/components/seo";
 
 export default function About() {
   const [openFaq, setOpenFaq] = useState<number | null>(null);
@@ -27,16 +28,23 @@ export default function About() {
   };
 
   return (
-    <div className="min-h-screen py-20 bg-gray-50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
+    <div className="min-h-screen py-20 bg-gray-50 section-gradient relative overflow-hidden">
+      <SEO 
+        title="About Us | Regulatory Compliance Experts"
+        description="Learn about AccredCert, your trusted US FDA registered agent assisting global businesses in navigating complex FDA regulations."
+        keywords="about AccredCert, FDA agent, compliance experts, regulatory agency"
+      />
+      <div className="absolute top-20 right-20 w-80 h-80 bg-blue-500/5 rounded-full blur-3xl animate-float-y pointer-events-none" />
+      <div className="absolute bottom-20 left-20 w-72 h-72 bg-green-500/5 rounded-full blur-3xl animate-float-x pointer-events-none" />
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div className="text-center mb-16" data-animate="reveal">
           <h1 className="text-4xl font-bold text-black mb-4">About AccredCert</h1>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
             Your trusted partner in global compliance and regulatory solutions
           </p>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mb-16">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mb-16" data-animate="reveal">
           <img 
             src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600" 
             alt="AccredCert team working on compliance solutions" 
@@ -52,14 +60,14 @@ export default function About() {
               Whether you're a manufacturer, distributor, or exporter, our expertise in product registration, labeling, and inspections ensures smooth compliance. With a focus on efficiency, we work closely with our clients to simplify regulatory processes, enabling them to expand internationally with confidence.
             </p>
             
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-              <Card className="bg-white border border-gray-100">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6" data-animate-group="stagger">
+              <Card className="bg-white border border-gray-100" data-animate-item="stagger">
                 <CardContent className="p-6 text-center">
                   <div className="text-3xl font-bold text-blue-600 mb-2">500+</div>
                   <div className="text-gray-600">Successful Registrations</div>
                 </CardContent>
               </Card>
-              <Card className="bg-white border border-gray-100">
+              <Card className="bg-white border border-gray-100" data-animate-item="stagger">
                 <CardContent className="p-6 text-center">
                   <div className="text-3xl font-bold text-blue-600 mb-2">50+</div>
                   <div className="text-gray-600">Countries Served</div>
@@ -70,11 +78,11 @@ export default function About() {
         </div>
 
         {/* Core Values */}
-        <div className="mb-16">
+        <div className="mb-16" data-animate="reveal">
           <h2 className="text-3xl font-bold text-black text-center mb-12">Our Core Values</h2>
           
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <Card className="bg-white border border-gray-100">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8" data-animate-group="stagger">
+            <Card className="bg-white border border-gray-100" data-animate-item="stagger">
               <CardContent className="p-8 text-center">
                 <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
                   <Award className="w-8 h-8 text-blue-600" />
@@ -86,7 +94,7 @@ export default function About() {
               </CardContent>
             </Card>
 
-            <Card className="bg-white border border-gray-100">
+            <Card className="bg-white border border-gray-100" data-animate-item="stagger">
               <CardContent className="p-8 text-center">
                 <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
                   <Users className="w-8 h-8 text-green-600" />
@@ -98,7 +106,7 @@ export default function About() {
               </CardContent>
             </Card>
 
-            <Card className="bg-white border border-gray-100">
+            <Card className="bg-white border border-gray-100" data-animate-item="stagger">
               <CardContent className="p-8 text-center">
                 <div className="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
                   <Globe className="w-8 h-8 text-purple-600" />
@@ -113,7 +121,7 @@ export default function About() {
         </div>
 
         {/* FAQ Section */}
-        <Card className="bg-white border border-gray-100">
+        <Card className="bg-white border border-gray-100" data-animate="reveal">
           <CardContent className="p-8">
             <h2 className="text-3xl font-bold text-black mb-8 text-center">Frequently Asked Questions</h2>
             
@@ -143,7 +151,7 @@ export default function About() {
         </Card>
 
         {/* CTA Section */}
-        <div className="mt-16 text-center bg-black rounded-2xl p-12">
+        <div className="mt-16 text-center bg-[linear-gradient(130deg,#0d1f31_0%,#0a4fa3_58%,#139f6a_100%)] rounded-2xl p-12" data-animate="reveal">
           <h2 className="text-3xl font-bold text-white mb-4">Ready to Get Started?</h2>
           <p className="text-xl text-gray-300 mb-8 max-w-2xl mx-auto">
             Let our certified experts help you navigate the complex world of regulatory compliance.

@@ -12,6 +12,7 @@ import { MapPin, Phone, Mail } from "lucide-react";
 import { apiRequest } from "@/lib/queryClient";
 import { useToast } from "@/hooks/use-toast";
 import { useState } from "react";
+import SEO from "@/components/seo";
 const contactSchema = z.object({
   name: z.string().min(1, "Name is required"),
   email: z.string().email("Invalid email format"),
@@ -83,18 +84,25 @@ export default function Contact() {
   };
 
   return (
-    <div className="min-h-screen py-20 bg-white">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
+    <div className="min-h-screen py-20 bg-white section-gradient relative overflow-hidden">
+      <SEO 
+        title="Contact Us | Get FDA Compliance Assistance"
+        description="Get in touch with AccredCert's regulatory compliance experts for help with FDA registration, audits, labeling, and certifications."
+        keywords="contact FDA agent, FDA consultation, customer support, contact regulatory agent"
+      />
+      <div className="absolute top-10 left-10 w-72 h-72 bg-blue-500/5 rounded-full blur-3xl animate-float-y pointer-events-none" />
+      <div className="absolute bottom-10 right-10 w-80 h-80 bg-green-500/5 rounded-full blur-3xl animate-float-x pointer-events-none" />
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div className="text-center mb-16" data-animate="reveal">
           <h1 className="text-4xl font-bold text-black mb-4">Contact Us</h1>
           <p className="text-xl text-gray-600">
             Don't hesitate to reach out to us!
           </p>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12" data-animate-group="stagger">
           {/* Contact Information */}
-          <div>
+          <div data-animate-item="stagger">
             <h2 className="text-2xl font-bold text-black mb-8">Get In Touch</h2>
             
             <div className="space-y-6 mb-8">
@@ -134,7 +142,7 @@ export default function Contact() {
             </div>
 
             {/* Google Maps Embed */}
-            <div className="rounded-xl overflow-hidden shadow-lg">
+            <div className="rounded-xl overflow-hidden shadow-lg" data-animate="reveal">
               <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3261.2042863190054!2d-106.57029602436731!3d35.17646057275444!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x872275c786eb08af%3A0x569d83d9be0a9064!2s8206%20Louisiana%20Blvd%20NE%20ste%20B%2C%20Albuquerque%2C%20NM%2087113%2C%20USA!5e0!3m2!1sen!2sin!4v1758716316364!5m2!1sen!2sin"   
                 width="100%" 
                 height="300" 
@@ -149,9 +157,9 @@ export default function Contact() {
           </div>
 
           {/* Contact Form and File Upload */}
-          <div className="space-y-8">
+          <div className="space-y-8" data-animate-item="stagger">
             {/* Contact Form */}
-            <Card className="bg-gray-50 border border-gray-100">
+            <Card className="bg-gray-50 border border-gray-100 surface-glass">
               <CardContent className="p-8">
                 <h3 className="text-xl font-semibold text-black mb-6">Send us a Message</h3>
                 <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
@@ -215,7 +223,7 @@ export default function Contact() {
                   </div>
 
                   {/* File Upload Portal */}
-             <Card className="bg-gray-50 border border-gray-100">
+             <Card className="bg-gray-50 border border-gray-100 surface-glass">
               <CardContent className="p-8">
                 <h3 className="text-xl font-semibold text-black mb-6">Client Document Upload</h3>
                 <p className="text-gray-600 mb-6">
@@ -241,8 +249,8 @@ export default function Contact() {
         </div>
 
         {/* Business Hours */}
-        <div className="mt-16">
-          <Card className="bg-gray-50 border border-gray-100">
+        <div className="mt-16" data-animate="reveal">
+          <Card className="bg-gray-50 border border-gray-100 surface-glass">
             <CardContent className="p-8 text-center">
               <h3 className="text-2xl font-bold text-black mb-6">Business Hours</h3>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-gray-600">

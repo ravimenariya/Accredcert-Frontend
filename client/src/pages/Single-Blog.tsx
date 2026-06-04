@@ -3,17 +3,18 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Link } from "wouter";
 import { useRoute } from "wouter";
+import SEO from "@/components/seo";
 
 const SingleBlog = () => {
     const [match, params] = useRoute("/blog/:id");
-    const [blog, setBlog] = useState(null);
+    const [blog, setBlog] = useState<any>(null);
     const [loading, setLoading] = useState(true);
     const [blogNotFound, setBlogNotFound] = useState(false);
-    const [error, setError] = useState(null);
+    const [error, setError] = useState<any>(null);
     const id = params?.id;
 
     const Backend_url =
-        import.meta.env.VITE_BACKEND_URL ;
+        import.meta.env.VITE_BACKEND_URL || "http://localhost:3000";
 
     useEffect(() => {
         if (!id) {
@@ -31,7 +32,7 @@ const SingleBlog = () => {
                     `${Backend_url}/user/getblog/${id}`,
                 );
                 setBlog(response.data);
-            } catch (err) {
+            } catch (err: any) {
                 if (err.response && err.response.status === 404) {
                     setBlogNotFound(true);
                 } else {
@@ -47,18 +48,18 @@ const SingleBlog = () => {
     return (
         <>
             {loading && (
-                <div className="flex min-h-screen items-center justify-center">
-                    <div className="text-lg font-semibold text-gray-700">
+                <div className="flex min-h-screen items-center justify-center section-gradient">
+                    <div className="text-lg font-semibold text-gray-700" data-animate="reveal">
                         Loading...
                     </div>
                 </div>
             )}
 
             {blogNotFound && (
-                <div className="flex min-h-screen items-center justify-center">
-                    <div className="text-lg font-semibold text-gray-500">
-                        Blog not found. nahi mila
-                        <p>
+                <div className="flex min-h-screen items-center justify-center section-gradient">
+                    <div className="text-lg font-semibold text-gray-500" data-animate="reveal">
+                        Blog not found.
+                        <p className="mt-4">
                             <a
                                 href="/blogs"
                                 className="text-blue-500 underline"
@@ -71,21 +72,33 @@ const SingleBlog = () => {
             )}
 
             {error && (
-                <div className="flex min-h-screen items-center justify-center">
-                    <div className="text-lg font-semibold text-red-600">
+                <div className="flex min-h-screen items-center justify-center section-gradient">
+                    <div className="text-lg font-semibold text-red-600" data-animate="reveal">
                         Error: {error}
                     </div>
                 </div>
             )}
 
             {blog && !loading && !blogNotFound && (
-                <div className="container mx-auto max-w-4xl p-4 md:p-8 ">
-                    <div className="w-3xl overflow-hidden rounded-lg bg-white shadow-xl">
-                        <div className="Header flex content-center mt-8">
+                <div className="container mx-auto max-w-4xl p-4 md:p-8 section-gradient min-h-screen relative overflow-hidden">
+                    <SEO 
+                        title={blog.title}
+                        description={blog.description}
+                        keywords={`${blog.category}, AccredCert blog, FDA compliance update`}
+                        ogImage={blog.imageUrl}
+                        ogTitle={blog.title}
+                        ogDescription={blog.description}
+                    />
+                    <div className="absolute top-10 left-10 w-72 h-72 bg-blue-500/5 rounded-full blur-3xl animate-float-y pointer-events-none" />
+                    <div className="absolute bottom-10 right-10 w-72 h-72 bg-green-500/5 rounded-full blur-3xl animate-float-x pointer-events-none" />
+                    
+                    <div className="w-3xl overflow-hidden rounded-lg bg-white shadow-xl surface-glass relative z-10" data-animate="reveal">
+                        <div className="Header flex content-center mt-8" data-animate="reveal">
                             <Link href="/blogs" className="mr-8 ml-4 mt-2">
                                 <img
                                     className="h-8 mb-3" // Reduced from h-10 mb-4
                                     src="https://static.vecteezy.com/system/resources/previews/017/784/917/non_2x/left-arrow-icon-on-transparent-background-free-png.png"
+                                    alt="Back"
                                 />
                             </Link>
                             <div>
@@ -104,17 +117,18 @@ const SingleBlog = () => {
                         </div>
 
                         <img
+                            data-animate="parallax"
                             src={blog.imageUrl}
                             alt={blog.title}
-                            className="h-80 w-full object-cover"
+                            className="h-96 w-full object-cover"
                         />
                         <div className="p-6 md:p-10">
-                            <p className="mb-4 text-base leading-relaxed text-gray-700">
+                            <p className="mb-4 text-base leading-relaxed text-gray-700 font-semibold border-l-4 border-blue-500 pl-4">
                                 {blog.description}
                             </p>
 
                             <div className="prose max-w-none leading-relaxed text-gray-800">
-                                <p>{blog.body}</p>
+                                <p className="whitespace-pre-line">{blog.body}</p>
                             </div>
                         </div>
                     </div>

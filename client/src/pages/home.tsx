@@ -1,15 +1,29 @@
 import { Link } from "wouter";
 import { Button } from "@/components/ui/button";
 import { CheckCircle, Award, Users, Globe } from "lucide-react";
-import { url } from "inspector";
+import Windmill from "@/components/ui/windmill";
+import SEO from "@/components/seo";
 
 export default function Home() {
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen relative overflow-hidden">
+      <SEO 
+        title="FDA Compliance & Regulatory Solutions" 
+        description="AccredCert is a trusted & US Govt. certified FDA agent specializing in global compliance solutions for manufacturers, distributors, and exporters." 
+        keywords="FDA compliance, FDA registration, FDA agent, food registration, cosmetics registration, MoCRA, medical device registration, food facility registration, FSVP agent"
+      />
+      
+      {/* Decorative floating shapes for premium UI */}
+      <div className="absolute top-20 left-10 w-72 h-72 bg-blue-500/10 rounded-full blur-3xl animate-float-y pointer-events-none z-0" />
+      <div className="absolute top-1/3 right-10 w-96 h-96 bg-green-500/10 rounded-full blur-3xl animate-float-x pointer-events-none z-0" />
+      
+      <Windmill degrees={900} size={160} corner="top-right" />
+      
       {/* Hero Section */}
-      <section className="relative bg-gray-900 text-white">
+      <section className="relative overflow-hidden bg-[#0f2438] text-white">
         {/* background image */}
         <div
+          data-animate="parallax"
           className="absolute inset-0 bg-cover bg-center z-0"
           style={{
             backgroundImage:
@@ -18,16 +32,15 @@ export default function Home() {
         />
 
         {/* subtle black overlay ~25% opacity so text pops */}
-        <div className="absolute inset-0 bg-black/25 z-10" />
+        <div className="absolute inset-0 bg-[linear-gradient(150deg,rgba(6,20,33,0.82)_0%,rgba(12,54,92,0.67)_58%,rgba(25,115,82,0.58)_100%)] z-10" />
 
         <div className="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 xlg:px-8 py-24 md:py-32">
-          <div className="text-center">
+          <div className="text-center" data-animate="reveal">
             <h1 className="text-4xl md:text-6xl font-bold mb-6 leading-tight">
               Simplifying Global<br />
-              <span className="brand-blue">Compliance</span>
+              <span className="text-[#f2c357]">Compliance</span>
             </h1>
-            <p className="text-2xl md:text-3xl mb-8 max-w-3xl mx-auto text-black font-bold 
-             bg-white/40 p-4 rounded-xl">
+            <p className="text-xl md:text-2xl mb-8 max-w-3xl mx-auto text-white font-semibold bg-white/15 backdrop-blur-md p-4 rounded-xl border border-white/30">
               AccredCert is a trusted &amp; US Govt. certified FDA agent specializing in global compliance solutions for manufacturers, distributors, and exporters.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -47,7 +60,7 @@ export default function Home() {
       </section>
 
       {/* Key Features */}
-      <section className="py-20 bg-white">
+      <section className="py-20 section-gradient" data-animate="reveal">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-4xl font-bold text-black mb-4">Why Choose AccredCert?</h2>
@@ -56,8 +69,8 @@ export default function Home() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            <div className="text-center">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8" data-animate-group="stagger">
+            <div className="text-center surface-glass rounded-xl p-5" data-animate-item="stagger">
               <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
                 <CheckCircle className="w-8 h-8 text-blue-600" />
               </div>
@@ -67,7 +80,7 @@ export default function Home() {
               </p>
             </div>
 
-            <div className="text-center">
+            <div className="text-center surface-glass rounded-xl p-5" data-animate-item="stagger">
               <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
                 <Award className="w-8 h-8 text-green-600" />
               </div>
@@ -77,7 +90,7 @@ export default function Home() {
               </p>
             </div>
 
-            <div className="text-center">
+            <div className="text-center surface-glass rounded-xl p-5" data-animate-item="stagger">
               <div className="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
                 <Users className="w-8 h-8 text-purple-600" />
               </div>
@@ -87,7 +100,7 @@ export default function Home() {
               </p>
             </div>
 
-            <div className="text-center">
+            <div className="text-center surface-glass rounded-xl p-5" data-animate-item="stagger">
               <div className="w-16 h-16 bg-orange-100 rounded-full flex items-center justify-center mx-auto mb-4">
                 <Globe className="w-8 h-8 text-orange-600" />
               </div>
@@ -101,7 +114,7 @@ export default function Home() {
       </section>
 
       {/* Services Preview */}
-      <section className="py-20 bg-gray-50">
+      <section className="py-20 bg-gray-50" data-animate="reveal">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-4xl font-bold text-black mb-4">Our Core Services</h2>
@@ -110,9 +123,9 @@ export default function Home() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" data-animate-group="stagger">
             {/* USA Services */}
-            <div className="service-card p-6">
+            <div className="service-card p-6" data-animate-item="stagger">
               <img 
                 src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=400" 
                 alt="FDA Registration"
@@ -125,7 +138,7 @@ export default function Home() {
               <Button className="professional-button">Learn More</Button>
             </div>
 
-            <div className="service-card p-6">
+            <div className="service-card p-6" data-animate-item="stagger">
               <img 
                 src="https://images.unsplash.com/photo-1596462502278-27bfdc403348?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=400" 
                 alt="Cosmetics Registration"
@@ -138,7 +151,7 @@ export default function Home() {
               <Button className="professional-button">Learn More</Button>
             </div>
 
-            <div className="service-card p-6">
+            <div className="service-card p-6" data-animate-item="stagger">
               <img 
                 src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=400" 
                 alt="LLC Registration"
@@ -163,7 +176,7 @@ export default function Home() {
       </section>
 
       {/* CTA Section */}
-<div className="mt-1 mb-20 text-center bg-black rounded-2xl p-12 max-w-5xl mx-auto">
+<div className="mt-1 mb-20 text-center bg-[linear-gradient(130deg,#0d1f31_0%,#0a4fa3_58%,#139f6a_100%)] rounded-2xl p-12 max-w-5xl mx-auto" data-animate="reveal">
   <h2 className="text-4xl font-bold mb-6 text-white">
     Ready to Simplify Your Compliance?
   </h2>

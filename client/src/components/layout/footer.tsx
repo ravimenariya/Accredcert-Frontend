@@ -48,7 +48,7 @@ export default function Footer() {
               <li><Link href="/services" className="text-gray-300 hover:text-white transition duration-300">Our Services</Link></li>
               <li><Link href="/verification" className="text-gray-300 hover:text-white transition duration-300">Certificate Verification</Link></li>
               <li><Link href="/contact" className="text-gray-300 hover:text-white transition duration-300">Contact Us</Link></li>
-              <li><Link href="/blog" className="text-gray-300 hover:text-white transition duration-300">Blog</Link></li>
+              <li><Link href="/blogs" className="text-gray-300 hover:text-white transition duration-300">Blog</Link></li>
             </ul>
           </div>
 
