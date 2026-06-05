@@ -38,7 +38,8 @@ export default function Contact() {
 
   const contactMutation = useMutation({
     mutationFn: async (formData: FormData) => {
-      const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/user/contact`, {
+      const backendUrl = import.meta.env.VITE_BACKEND_URL || "http://localhost:3000";
+      const response = await fetch(`${backendUrl}/user/contact`, {
         method: "POST",
         body: formData, // Direct FormData
       });

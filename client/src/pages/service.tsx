@@ -24,7 +24,8 @@ export default function Service() {  // ✅ default export
     if (!id) return;
     const fetchService = async () => {
       try {
-        const res = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/user/getservice/${id}`);
+        const backendUrl = import.meta.env.VITE_BACKEND_URL || "http://localhost:3000";
+        const res = await axios.get(`${backendUrl}/user/getservice/${id}`);
         setService(res.data);
       } catch (err) {
         console.error(err);
