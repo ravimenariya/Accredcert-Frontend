@@ -68,8 +68,8 @@ export default function Verification() {
 
   return (
     <div className="min-h-screen py-20 bg-white section-gradient relative overflow-hidden">
-      <SEO 
-        title="FDA Certificate Verification"
+      <SEO
+        title="Certificate Verification"
         description="Verify the status, authenticity, and validity of your AccredCert FDA registration and compliance certificates instantly."
         keywords="certificate verification, FDA certificate check, AccredCert verify, FDA registry lookup"
       />

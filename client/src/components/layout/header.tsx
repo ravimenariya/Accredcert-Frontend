@@ -1,13 +1,31 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link, useLocation } from "wouter";
 import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import logoPath from "@/assets/logo.png";
+import Magnetic from "@/components/ui/magnetic";
 
 export default function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [location] = useLocation();
+  const [isScrolled, setIsScrolled] = useState(false);
+  const isHomePage = location === "/";
+
+  useEffect(() => {
+    if (!isHomePage) {
+      setIsScrolled(true);
+      return;
+    }
+
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 20);
+    };
+
+    handleScroll();
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [location, isHomePage]);
 
   const navLinks = [
     { href: "/", label: "Home" },
@@ -23,35 +41,46 @@ export default function Header() {
     return location.startsWith(href);
   };
 
+  const navPositionClass = isHomePage
+    ? (isScrolled ? "fixed top-0 left-0 right-0" : "absolute top-0 left-0 right-0")
+    : "sticky top-0";
+
+  const navBgClass = (isHomePage && !isScrolled && !isMobileMenuOpen)
+    ? "bg-transparent shadow-none border-b border-transparent"
+    : "bg-black/95 backdrop-blur-md shadow-lg border-b border-white/5";
+
   return (
-    <nav className="bg-black text-white shadow-lg sticky top-0 z-50">
+    <nav className={cn("text-white z-50 transition-all duration-300", navPositionClass, navBgClass)}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-20 md:h-16">
           {/* Mobile: Center logo, Desktop: Left align */}
           <div className="flex items-center md:flex-none flex-1 justify-center md:justify-start order-2 md:order-1">
-            <Link href="/" className="flex items-center hover:opacity-80 transition-opacity">
-              <img 
-                src={logoPath} 
-                alt="AccredCert Logo" 
-                className="h-12 md:h-10 w-auto"
-              />
-            </Link>
+            <Magnetic strength={0.15} range={50}>
+              <Link href="/" className="flex items-center hover:opacity-80 transition-opacity">
+                <img 
+                  src={logoPath} 
+                  alt="AccredCert Logo" 
+                  className="h-12 md:h-10 w-auto"
+                />
+              </Link>
+            </Magnetic>
           </div>
 
           {/* Desktop Navigation */}
           <div className="hidden md:block order-3 md:order-2">
             <div className="ml-10 flex items-baseline space-x-8">
               {navLinks.map((link) => (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                  className={cn(
-                    "text-lg font-medium px-4 py-3 rounded-md transition-colors duration-200 hover:bg-gray-800 whitespace-nowrap",
-                    isActiveLink(link.href) ? "bg-gray-800 text-white" : "text-gray-300 hover:text-white"
-                  )}
-                >
-                  {link.label}
-                </Link>
+                <Magnetic key={link.href} strength={0.2} range={45}>
+                  <Link
+                    href={link.href}
+                    className={cn(
+                      "text-lg font-medium px-4 py-3 rounded-md transition-colors duration-200 hover:bg-gray-800 whitespace-nowrap",
+                      isActiveLink(link.href) ? "bg-gray-800 text-white" : "text-gray-300 hover:text-white"
+                    )}
+                  >
+                    {link.label}
+                  </Link>
+                </Magnetic>
               ))}
             </div>
           </div>

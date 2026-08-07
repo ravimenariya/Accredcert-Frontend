@@ -29,19 +29,15 @@ export default function ParticlesEffect({ isActive }: ParticlesEffectProps) {
 
     let animationId: number;
     let particles: Particle[] = [];
-    const maxParticles = isActive ? 120 : 50;
 
-    // Brand matching colors
-    const colors = {
-      gold: "242, 195, 87",   // #f2c357
-      blue: "10, 79, 163",    // #0a4fa3
-      green: "19, 163, 107",  // #13a36b
-    };
-
+    // White and silver shades for a clean, premium look
     const getRandomColor = () => {
-      const keys = Object.keys(colors) as Array<keyof typeof colors>;
-      const selected = keys[Math.floor(Math.random() * keys.length)];
-      return colors[selected];
+      const shades = [
+        "255, 255, 255", // Pure White
+        "240, 245, 255", // Bright Ice Blue/White
+        "220, 225, 235", // Light Silver
+      ];
+      return shades[Math.floor(Math.random() * shades.length)];
     };
 
     const resizeCanvas = () => {
@@ -77,37 +73,44 @@ export default function ParticlesEffect({ isActive }: ParticlesEffectProps) {
       return {
         x: x ?? Math.random() * canvas.width,
         y: y ?? Math.random() * canvas.height,
-        vx: (Math.random() - 0.5) * (isActive ? 1.8 : 0.8),
-        vy: (Math.random() - 0.5) * (isActive ? 1.8 : 0.8),
-        size: Math.random() * (isActive ? 4.5 : 2.5) + 1,
+        vx: (Math.random() - 0.5) * (isActive ? 2.0 : 1.0),
+        vy: (Math.random() - 0.5) * (isActive ? 2.0 : 1.0),
+        size: Math.random() * (isActive ? 4.5 : 2.5) + 1.5,
         color: getRandomColor(),
-        alpha: Math.random() * 0.5 + 0.3,
+        alpha: Math.random() * 0.6 + 0.4,
         decay: Math.random() * 0.005 + 0.002,
       };
     };
 
-    for (let i = 0; i < maxParticles; i++) {
+    const getTargetCount = () => {
+      const area = canvas.width * canvas.height;
+      const density = isActive ? 7000 : 14000;
+      const count = Math.floor(area / density);
+      return Math.min(Math.max(count, isActive ? 60 : 30), isActive ? 150 : 80);
+    };
+
+    const targetCount = getTargetCount();
+    for (let i = 0; i < targetCount; i++) {
       particles.push(createParticle());
     }
 
     const animate = () => {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-      // Adjust particle count based on active hover states
-      const targetCount = isActive ? 120 : 50;
-      if (particles.length < targetCount && Math.random() < 0.3) {
+      const currentTargetCount = getTargetCount();
+      if (particles.length < currentTargetCount && Math.random() < 0.3) {
         particles.push(createParticle());
-      } else if (particles.length > targetCount) {
+      } else if (particles.length > currentTargetCount) {
         particles.pop();
       }
 
-      // If text is hovered, emit extra trail particles at mouse pointer
-      if (mouseRef.current.isInside && isActive && Math.random() < 0.5) {
+      // Emit extra trail particles if mouse is moving inside
+      if (mouseRef.current.isInside && isActive && Math.random() < 0.4) {
         particles.push(createParticle(mouseRef.current.x, mouseRef.current.y));
       }
 
-      // Draw connection lines
-      const connectDist = isActive ? 120 : 80;
+      // Draw connection lines between particles (network web)
+      const connectDist = isActive ? 140 : 90;
       for (let i = 0; i < particles.length; i++) {
         for (let j = i + 1; j < particles.length; j++) {
           const dx = particles[i].x - particles[j].x;
@@ -115,9 +118,9 @@ export default function ParticlesEffect({ isActive }: ParticlesEffectProps) {
           const dist = Math.sqrt(dx * dx + dy * dy);
 
           if (dist < connectDist) {
-            const alpha = (1 - dist / connectDist) * (isActive ? 0.25 : 0.12);
-            ctx.strokeStyle = `rgba(255, 255, 255, ${alpha})`;
-            ctx.lineWidth = isActive ? 1.0 : 0.6;
+            const alpha = (1 - dist / connectDist) * (isActive ? 0.35 : 0.18);
+            ctx.strokeStyle = `rgba(${particles[i].color}, ${alpha})`;
+            ctx.lineWidth = isActive ? 1.2 : 0.8;
             ctx.beginPath();
             ctx.moveTo(particles[i].x, particles[i].y);
             ctx.lineTo(particles[j].x, particles[j].y);
@@ -126,7 +129,27 @@ export default function ParticlesEffect({ isActive }: ParticlesEffectProps) {
         }
       }
 
-      // Render updated positions
+      // Draw connection lines to mouse
+      if (mouseRef.current.isInside) {
+        const mouseConnectDist = isActive ? 180 : 120;
+        for (let i = 0; i < particles.length; i++) {
+          const dx = mouseRef.current.x - particles[i].x;
+          const dy = mouseRef.current.y - particles[i].y;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+
+          if (dist < mouseConnectDist) {
+            const alpha = (1 - dist / mouseConnectDist) * (isActive ? 0.45 : 0.25);
+            ctx.strokeStyle = `rgba(${particles[i].color}, ${alpha})`;
+            ctx.lineWidth = isActive ? 1.5 : 1.0;
+            ctx.beginPath();
+            ctx.moveTo(mouseRef.current.x, mouseRef.current.y);
+            ctx.lineTo(particles[i].x, particles[i].y);
+            ctx.stroke();
+          }
+        }
+      }
+
+      // Render updated positions and draw particles
       particles.forEach((p) => {
         p.x += p.vx;
         p.y += p.vy;
@@ -140,17 +163,17 @@ export default function ParticlesEffect({ isActive }: ParticlesEffectProps) {
           const dx = mouseRef.current.x - p.x;
           const dy = mouseRef.current.y - p.y;
           const dist = Math.sqrt(dx * dx + dy * dy);
-          const forceDist = isActive ? 220 : 120;
+          const forceDist = isActive ? 240 : 140;
 
           if (dist < forceDist) {
             const force = (forceDist - dist) / forceDist;
-            const attraction = isActive ? 0.06 : 0.015;
+            const attraction = isActive ? 0.08 : 0.025;
             p.vx += (dx / dist) * force * attraction;
             p.vy += (dy / dist) * force * attraction;
 
             // Enforce max speed limits
             const speed = Math.sqrt(p.vx * p.vx + p.vy * p.vy);
-            const maxSpeed = isActive ? 3.5 : 1.8;
+            const maxSpeed = isActive ? 4.0 : 2.0;
             if (speed > maxSpeed) {
               p.vx = (p.vx / speed) * maxSpeed;
               p.vy = (p.vy / speed) * maxSpeed;
