@@ -59,14 +59,14 @@ export default function Footer() {
               <div className="flex items-start">
                 <MapPin className="mt-1 mr-3 flex-shrink-0" size={16} />
                 <span className="text-sm">
-                  8206 Louisiana Blvd NE <br />
-                  Ste B #10376 <br />
-                  Albuquerque, NM 87113
+                  1209 MOUNTAIN ROAD PL NE<br />
+                  #10113<br />
+                  ALBUQUERQUE, NM, 87110, USA
                 </span>
               </div>
               <div className="flex items-center">
                 <Phone className="mr-3 flex-shrink-0" size={16} />
-                <span className="text-sm">+1 5053086452</span>
+                <span className="text-sm">+1 (505) 308-6452</span>
               </div>
               <div className="flex items-center">
                 <Mail className="mr-3 flex-shrink-0" size={16} />
